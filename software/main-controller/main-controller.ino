@@ -1,7 +1,8 @@
 #include "config.h"
 #include "helper.h"
 
-#include <U8g2lib.h>      // https://github.com/olikraus/U8g2_Arduino
+/*
+#include <displaylib.h>      // https://github.com/olikraus/display_Arduino
 #ifdef U8X8_HAVE_HW_SPI
 #include <SPI.h>
 #endif
@@ -10,6 +11,9 @@
 #elif defined(U8X8_HAVE_HW_I2C)
 #include <Wire.h>
 #endif
+*/
+#include <SPI.h>
+#include <Ucglib.h>
 
 #include "i2c_devices.h"
 #include "i2c_button_device.h"
@@ -29,7 +33,9 @@ volatile boolean interruptEnabled;
 DeviceList devices(ENABLE_PIN, ENABLE_LOOP_PIN);
 
 // initial display
-U8G2_SH1106_128X64_NONAME_F_4W_HW_SPI u8g2(U8G2_R0, OLED_CS_PIN, OLED_DC_PIN, OLED_RST_PIN);
+//display_SH1106_128X64_NONAME_F_4W_HW_SPI display(display_R0, OLED_CS_PIN, OLED_DC_PIN, OLED_RST_PIN);
+//Ucglib_SSD1331_18x96x64_UNIVISION_HWSPI display(OLED_DC_PIN, OLED_CS_PIN, OLED_RST_PIN);
+Ucglib_ILI9163_18x128x128_HWSPI display(OLED_DC_PIN, OLED_CS_PIN, OLED_RST_PIN);
 
 
 CRGB rgbMap[6] = {0xFF0000, 0xFFFF00, 0x00FF00, 0x00FFFF, 0x0000FF, 0xFF00FF};
@@ -142,24 +148,28 @@ void OnNoteOn(byte channel, byte note, byte velocity) {
   Serial.print(velocity, DEC);
   Serial.println();
 
-  u8g2.clearBuffer();
-  u8g2.drawRFrame(0,0,128,64,5);
-  u8g2.setFont(u8g2_font_victoriabold8_8r);
-  u8g2.setCursor(5, 10);
-  u8g2.print("Note On");
-  u8g2.drawHLine(0, 13, 128);
-  u8g2.setFont(u8g2_font_victoriamedium8_8r);
-  u8g2.setCursor(5, 25);
-  u8g2.print("channel: ");
-  u8g2.print(channel);
-  u8g2.setCursor(5, 35);
-  u8g2.print("note: ");
-  u8g2.print(note);
-  u8g2.setCursor(5, 45);
-  u8g2.print("velocity: ");
-  u8g2.print(velocity);
-  u8g2.setCursor(5, 55);
-  u8g2.sendBuffer();
+  display.setColor(0, 80, 40, 0);
+  display.setColor(1, 60, 0, 40);
+  display.setColor(2, 20, 0, 20);
+  display.setColor(3, 60, 0, 0);  
+  display.drawGradientBox(0, 0, display.getWidth(), display.getHeight());
+  
+  display.setFont(ucg_font_helvB10_hr);
+  display.setColor(0, 255, 0);
+  display.setPrintPos(5, 15);
+  display.print("Note On");
+  
+  display.setFont(ucg_font_helvB08_hr);
+  display.setColor(255, 255, 255);
+  display.setPrintPos(5, 35);
+  display.print("channel: ");
+  display.print(channel);
+  display.setPrintPos(5, 45);
+  display.print("note: ");
+  display.print(note);
+  display.setPrintPos(5, 55);
+  display.print("velocity: ");
+  display.print(velocity);
   
   if (note == 60) {
     colTemp.red = 255; 
@@ -186,24 +196,28 @@ void OnNoteOff(byte channel, byte note, byte velocity) {
   Serial.print(velocity, DEC);
   Serial.println();
 
-  u8g2.clearBuffer();
-  u8g2.drawRFrame(0,0,128,64,5);
-  u8g2.setFont(u8g2_font_victoriabold8_8r);
-  u8g2.setCursor(5, 10);
-  u8g2.print("Note Off");
-  u8g2.drawHLine(0, 13, 128);
-  u8g2.setFont(u8g2_font_victoriamedium8_8r);
-  u8g2.setCursor(5, 25);
-  u8g2.print("channel: ");
-  u8g2.print(channel);
-  u8g2.setCursor(5, 35);
-  u8g2.print("note: ");
-  u8g2.print(note);
-  u8g2.setCursor(5, 45);
-  u8g2.print("velocity: ");
-  u8g2.print(velocity);
-  u8g2.setCursor(5, 55);
-  u8g2.sendBuffer();
+  display.setColor(0, 80, 40, 0);
+  display.setColor(1, 60, 0, 40);
+  display.setColor(2, 20, 0, 20);
+  display.setColor(3, 60, 0, 0);  
+  display.drawGradientBox(0, 0, display.getWidth(), display.getHeight());
+  
+  display.setFont(ucg_font_helvB10_hr);
+  display.setColor(255, 0, 0);
+  display.setPrintPos(5, 15);
+  display.print("Note Off");
+  
+  display.setFont(ucg_font_helvB08_hr);
+  display.setColor(255, 255, 255);
+  display.setPrintPos(5, 35);
+  display.print("channel: ");
+  display.print(channel);
+  display.setPrintPos(5, 45);
+  display.print("note: ");
+  display.print(note);
+  display.setPrintPos(5, 55);
+  display.print("velocity: ");
+  display.print(velocity);
   
   if (note == 60) {
     colTemp.red = 0; 
@@ -230,25 +244,28 @@ void OnVelocityChange(byte channel, byte note, byte velocity) {
   Serial.print(velocity, DEC);
   Serial.println();
 
-  u8g2.clearBuffer();
-  u8g2.drawRFrame(0,0,128,64,5);
-  u8g2.setFont(u8g2_font_victoriabold8_8r);
-  u8g2.setCursor(5, 10);
-  u8g2.print("Velocity Change");
-  u8g2.drawHLine(0, 13, 128);
-  u8g2.setFont(u8g2_font_victoriamedium8_8r);
-  u8g2.setCursor(5, 25);
-  u8g2.print("channel: ");
-  u8g2.print(channel);
-  u8g2.setCursor(5, 35);
-  u8g2.print("note: ");
-  u8g2.print(note);
-  u8g2.setCursor(5, 45);
-  u8g2.print("velocity: ");
-  u8g2.print(velocity);
-  u8g2.setCursor(5, 55);
-  u8g2.sendBuffer();
+  display.setColor(0, 80, 40, 0);
+  display.setColor(1, 60, 0, 40);
+  display.setColor(2, 20, 0, 20);
+  display.setColor(3, 60, 0, 0);  
+  display.drawGradientBox(0, 0, display.getWidth(), display.getHeight());
   
+  display.setFont(ucg_font_helvB10_hr);
+  display.setColor(255, 0, 0);
+  display.setPrintPos(5, 15);
+  display.print("Velocity Change");
+  
+  display.setFont(ucg_font_helvB08_hr);
+  display.setColor(255, 255, 255);
+  display.setPrintPos(5, 35);
+  display.print("channel: ");
+  display.print(channel);
+  display.setPrintPos(5, 45);
+  display.print("note: ");
+  display.print(note);
+  display.setPrintPos(5, 55);
+  display.print("velocity: ");
+  display.print(velocity);
 }
 
 void OnControlChange(byte channel, byte control, byte value) {
@@ -260,24 +277,28 @@ void OnControlChange(byte channel, byte control, byte value) {
   Serial.print(value, DEC);
   Serial.println();
 
-  u8g2.clearBuffer();
-  u8g2.drawRFrame(0,0,128,64,5);
-  u8g2.setFont(u8g2_font_victoriabold8_8r);
-  u8g2.setCursor(5, 10);
-  u8g2.print("Control Change");
-  u8g2.drawHLine(0, 13, 128);
-  u8g2.setFont(u8g2_font_victoriamedium8_8r);
-  u8g2.setCursor(5, 25);
-  u8g2.print("channel: ");
-  u8g2.print(channel);
-  u8g2.setCursor(5, 35);
-  u8g2.print("control: ");
-  u8g2.print(control);
-  u8g2.setCursor(5, 45);
-  u8g2.print("value: ");
-  u8g2.print(value);
-  u8g2.setCursor(5, 55);
-  u8g2.sendBuffer();
+  display.setColor(0, 80, 40, 0);
+  display.setColor(1, 60, 0, 40);
+  display.setColor(2, 20, 0, 20);
+  display.setColor(3, 60, 0, 0);  
+  display.drawGradientBox(0, 0, display.getWidth(), display.getHeight());
+  
+  display.setFont(ucg_font_helvB10_hr);
+  display.setColor(50, 200, 255);
+  display.setPrintPos(5, 15);
+  display.print("Control Change");
+  
+  display.setFont(ucg_font_helvB08_hr);
+  display.setColor(255, 255, 255);
+  display.setPrintPos(5, 35);
+  display.print("channel: ");
+  display.print(channel);
+  display.setPrintPos(5, 45);
+  display.print("control: ");
+  display.print(control);
+  display.setPrintPos(5, 55);
+  display.print("value: ");
+  display.print(value);
   
   if (control == 0) {
     colTemp.red = value*2;
@@ -295,9 +316,9 @@ void OnControlChange(byte channel, byte control, byte value) {
   } // if (buttonDevice) {
   
   if (channel == 1 && control == 123 && value == 0) {
-    u8g2.setCursor(5, 55);
-    u8g2.print("<MIDI> reset!");
-    u8g2.sendBuffer();
+    display.setColor(255, 0, 0);
+    display.setPrintPos(5, 65);
+    display.print("<MIDI> reset!");
   }
 }
 
@@ -336,8 +357,9 @@ void setup() {
   Wire.begin(I2C_MASTER, 0x00, I2C_PINS_18_19, I2C_PULLUP_INT, I2C_RATE_1000);
   
   // initial display with 180 degree screen rotation
-  u8g2.begin();
-  u8g2.setDisplayRotation(U8G2_R2);
+  display.begin(UCG_FONT_MODE_TRANSPARENT);
+  display.setFont(ucg_font_ncenR14_hr);
+  display.clearScreen();
   
   // register callbacks for usbMIDI events
   usbMIDI.setHandleNoteOff(OnNoteOff);
