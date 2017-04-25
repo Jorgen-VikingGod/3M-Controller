@@ -37,7 +37,7 @@ Sheet 1 1
 Title "Button Module"
 Date "2017-04-25"
 Rev "0.1"
-Comp "by Juergen Skrotzky (JorgenVikingGod@gmail.com)"
+Comp "by Juergen Skrotzky (JorgenVikingGod@gmail.com) & Stefan Michel"
 Comment1 "https://github.com/Jorgen-VikingGod/3M-Controller"
 Comment2 ""
 Comment3 ""
