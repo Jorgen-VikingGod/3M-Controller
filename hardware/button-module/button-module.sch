@@ -155,7 +155,7 @@ Text GLabel 8600 2550 0    60   Output ~ 0
 COLOR_2_3V3
 Text GLabel 8600 2650 0    60   Output ~ 0
 COLOR_3_3V3
-Text GLabel 8600 2350 0    60   Input ~ 0
+Text GLabel 7650 2350 0    60   Input ~ 0
 SWITCH_IN
 Text GLabel 8600 1900 0    60   BiDi ~ 0
 I2C_SDA
@@ -1513,6 +1513,44 @@ F 1 "CONN_01X06" V 1700 7000 50  0000 C CNN
 F 2 "Pin_Headers:Pin_Header_Straight_1x06_Pitch1.27mm" H 1600 7000 50  0001 C CNN
 F 3 "" H 1600 7000 50  0001 C CNN
 	1    1600 7000
+	1    0    0    -1  
+$EndComp
+$Comp
+L D_Zener D21
+U 1 1 590486FC
+P 7800 2500
+F 0 "D21" H 7800 2600 50  0000 C CNN
+F 1 "D_Zener" H 7900 2400 50  0000 C CNN
+F 2 "Diodes_SMD:D_SOD-123" H 7800 2500 50  0001 C CNN
+F 3 "" H 7800 2500 50  0001 C CNN
+	1    7800 2500
+	0    1    1    0   
+$EndComp
+$Comp
+L R R4
+U 1 1 59048E4D
+P 8100 2350
+F 0 "R4" V 8000 2300 50  0000 C CNN
+F 1 "R" V 8100 2350 50  0000 C CNN
+F 2 "Resistors_SMD:R_1206_HandSoldering" V 8030 2350 50  0001 C CNN
+F 3 "" H 8100 2350 50  0001 C CNN
+	1    8100 2350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7650 2350 7950 2350
+Connection ~ 7800 2350
+Wire Wire Line
+	8250 2350 8600 2350
+$Comp
+L GND #PWR?
+U 1 1 5904B185
+P 7800 2650
+F 0 "#PWR?" H 7800 2400 50  0001 C CNN
+F 1 "GND" H 7800 2500 50  0000 C CNN
+F 2 "" H 7800 2650 50  0001 C CNN
+F 3 "" H 7800 2650 50  0001 C CNN
+	1    7800 2650
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC

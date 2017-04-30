@@ -244,7 +244,7 @@ class ButtonDevice : public I2C_Device {
       DEBUG_PRINT(btnCount);
       DEBUG_PRINTLN(F("): "));
       if (btnCount < MAX_BUTTONS+1) {
-        writeDataToOffset(NUMBER_OF_BTNS, btnCount);
+        writeDataToOffset(NUMBER_OF_BTNS, 20);//btnCount);
         //writeDataToOffset(NUMBER_OF_BTNS, 24);
         writeDataToOffset(BTN_IRQ_MASK_PR_07_00, 0xFF);
         writeDataToOffset(BTN_IRQ_MASK_PR_15_08, 0xFF);
