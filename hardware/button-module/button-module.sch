@@ -171,97 +171,97 @@ Text GLabel 8600 1150 0    60   BiDi ~ 0
 PDI_DATA
 Text GLabel 8600 1050 0    60   BiDi ~ 0
 PDI_CLOCK
-Text GLabel 7850 4200 1    60   Input ~ 0
-MUX_0_3V3
-Text GLabel 7850 5600 3    60   Output ~ 0
-MUX_0_5V
-Text GLabel 7750 4200 1    60   Input ~ 0
-MUX_1_3V3
-Text GLabel 7650 4200 1    60   Input ~ 0
-MUX_2_3V3
-Text GLabel 7550 4200 1    60   Input ~ 0
-MUX_3_3V3
-Text GLabel 7450 4200 1    60   Input ~ 0
-MUX_4_3V3
-Text GLabel 7350 4200 1    60   Input ~ 0
-MUX_5_3V3
-Text GLabel 7250 4200 1    60   Input ~ 0
-MUX_6_3V3
 Text GLabel 7150 4200 1    60   Input ~ 0
-MUX_7_3V3
-Text GLabel 7750 5600 3    60   Output ~ 0
-MUX_1_5V
-Text GLabel 7650 5600 3    60   Output ~ 0
-MUX_2_5V
-Text GLabel 7550 5600 3    60   Output ~ 0
-MUX_3_5V
-Text GLabel 7450 5600 3    60   Output ~ 0
-MUX_4_5V
-Text GLabel 7350 5600 3    60   Output ~ 0
-MUX_5_5V
-Text GLabel 7250 5600 3    60   Output ~ 0
-MUX_6_5V
+MUX_0_3V3
 Text GLabel 7150 5600 3    60   Output ~ 0
+MUX_0_5V
+Text GLabel 7250 4200 1    60   Input ~ 0
+MUX_1_3V3
+Text GLabel 7350 4200 1    60   Input ~ 0
+MUX_2_3V3
+Text GLabel 7450 4200 1    60   Input ~ 0
+MUX_3_3V3
+Text GLabel 7550 4200 1    60   Input ~ 0
+MUX_4_3V3
+Text GLabel 7650 4200 1    60   Input ~ 0
+MUX_5_3V3
+Text GLabel 7750 4200 1    60   Input ~ 0
+MUX_6_3V3
+Text GLabel 7850 4200 1    60   Input ~ 0
+MUX_7_3V3
+Text GLabel 7250 5600 3    60   Output ~ 0
+MUX_1_5V
+Text GLabel 7350 5600 3    60   Output ~ 0
+MUX_2_5V
+Text GLabel 7450 5600 3    60   Output ~ 0
+MUX_3_5V
+Text GLabel 7550 5600 3    60   Output ~ 0
+MUX_4_5V
+Text GLabel 7650 5600 3    60   Output ~ 0
+MUX_5_5V
+Text GLabel 7750 5600 3    60   Output ~ 0
+MUX_6_5V
+Text GLabel 7850 5600 3    60   Output ~ 0
 MUX_7_5V
-Text GLabel 9350 4200 1    60   Input ~ 0
-MUX_8_3V3
-Text GLabel 9250 4200 1    60   Input ~ 0
-MUX_9_3V3
-Text GLabel 9150 4200 1    60   Input ~ 0
-MUX_10_3V3
-Text GLabel 9050 4200 1    60   Input ~ 0
-MUX_11_3V3
-Text GLabel 8950 4200 1    60   Input ~ 0
-MUX_12_3V3
-Text GLabel 8850 4200 1    60   Input ~ 0
-MUX_13_3V3
-Text GLabel 8750 4200 1    60   Input ~ 0
-MUX_14_3V3
 Text GLabel 8650 4200 1    60   Input ~ 0
+MUX_8_3V3
+Text GLabel 8750 4200 1    60   Input ~ 0
+MUX_9_3V3
+Text GLabel 8850 4200 1    60   Input ~ 0
+MUX_10_3V3
+Text GLabel 8950 4200 1    60   Input ~ 0
+MUX_11_3V3
+Text GLabel 9050 4200 1    60   Input ~ 0
+MUX_12_3V3
+Text GLabel 9150 4200 1    60   Input ~ 0
+MUX_13_3V3
+Text GLabel 9250 4200 1    60   Input ~ 0
+MUX_14_3V3
+Text GLabel 9350 4200 1    60   Input ~ 0
 MUX_15_3V3
-Text GLabel 10900 4200 1    60   Input ~ 0
-MUX_16_3V3
-Text GLabel 10800 4200 1    60   Input ~ 0
-MUX_17_3V3
-Text GLabel 10700 4200 1    60   Input ~ 0
-MUX_18_3V3
-Text GLabel 10600 4200 1    60   Input ~ 0
-MUX_19_3V3
-Text GLabel 10400 4200 1    60   Input ~ 0
-COLOR_1_3V3
-Text GLabel 10300 4200 1    60   Input ~ 0
-COLOR_2_3V3
 Text GLabel 10200 4200 1    60   Input ~ 0
+MUX_16_3V3
+Text GLabel 10300 4200 1    60   Input ~ 0
+MUX_17_3V3
+Text GLabel 10400 4200 1    60   Input ~ 0
+MUX_18_3V3
+Text GLabel 10500 4200 1    60   Input ~ 0
+MUX_19_3V3
+Text GLabel 10700 4200 1    60   Input ~ 0
+COLOR_1_3V3
+Text GLabel 10800 4200 1    60   Input ~ 0
+COLOR_2_3V3
+Text GLabel 10900 4200 1    60   Input ~ 0
 COLOR_3_3V3
-Text GLabel 9350 5600 3    60   Output ~ 0
-MUX_8_5V
-Text GLabel 9250 5600 3    60   Output ~ 0
-MUX_9_5V
-Text GLabel 9150 5600 3    60   Output ~ 0
-MUX_10_5V
-Text GLabel 9050 5600 3    60   Output ~ 0
-MUX_11_5V
-Text GLabel 8950 5600 3    60   Output ~ 0
-MUX_12_5V
-Text GLabel 8850 5600 3    60   Output ~ 0
-MUX_13_5V
-Text GLabel 8750 5600 3    60   Output ~ 0
-MUX_14_5V
 Text GLabel 8650 5600 3    60   Output ~ 0
+MUX_8_5V
+Text GLabel 8750 5600 3    60   Output ~ 0
+MUX_9_5V
+Text GLabel 8850 5600 3    60   Output ~ 0
+MUX_10_5V
+Text GLabel 8950 5600 3    60   Output ~ 0
+MUX_11_5V
+Text GLabel 9050 5600 3    60   Output ~ 0
+MUX_12_5V
+Text GLabel 9150 5600 3    60   Output ~ 0
+MUX_13_5V
+Text GLabel 9250 5600 3    60   Output ~ 0
+MUX_14_5V
+Text GLabel 9350 5600 3    60   Output ~ 0
 MUX_15_5V
-Text GLabel 10900 5600 3    60   Output ~ 0
+Text GLabel 10200 5600 3    60   Output ~ 0
 MUX_16_5V
-Text GLabel 10800 5600 3    60   Output ~ 0
+Text GLabel 10300 5600 3    60   Output ~ 0
 MUX_17_5V
-Text GLabel 10700 5600 3    60   Output ~ 0
+Text GLabel 10400 5600 3    60   Output ~ 0
 MUX_18_5V
-Text GLabel 10600 5600 3    60   Output ~ 0
+Text GLabel 10500 5600 3    60   Output ~ 0
 MUX_19_5V
-Text GLabel 10400 5900 3    60   Output ~ 0
+Text GLabel 10700 5900 3    60   Output ~ 0
 COLOR_1_5V
-Text GLabel 10300 5900 3    60   Output ~ 0
+Text GLabel 10800 5900 3    60   Output ~ 0
 COLOR_2_5V
-Text GLabel 10200 5900 3    60   Output ~ 0
+Text GLabel 10900 5900 3    60   Output ~ 0
 COLOR_3_5V
 NoConn ~ 8600 3050
 NoConn ~ 8600 2950
@@ -313,37 +313,37 @@ $EndComp
 $Comp
 L R R3
 U 1 1 58FFA342
-P 10200 5750
-F 0 "R3" H 10200 5900 50  0000 C CNN
-F 1 "4K" V 10200 5750 50  0000 C CNN
-F 2 "Resistors_SMD:R_1206_HandSoldering" V 10130 5750 50  0001 C CNN
-F 3 "" H 10200 5750 50  0001 C CNN
-	1    10200 5750
+P 10900 5750
+F 0 "R3" H 10900 5900 50  0000 C CNN
+F 1 "4K" V 10900 5750 50  0000 C CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 10830 5750 50  0001 C CNN
+F 3 "" H 10900 5750 50  0001 C CNN
+	1    10900 5750
 	1    0    0    -1  
 $EndComp
 $Comp
 L R R2
 U 1 1 58FFA67C
-P 10300 5750
-F 0 "R2" H 10300 5900 50  0000 C CNN
-F 1 "4K" V 10300 5750 50  0000 C CNN
-F 2 "Resistors_SMD:R_1206_HandSoldering" V 10230 5750 50  0001 C CNN
-F 3 "" H 10300 5750 50  0001 C CNN
-	1    10300 5750
+P 10800 5750
+F 0 "R2" H 10800 5900 50  0000 C CNN
+F 1 "4K" V 10800 5750 50  0000 C CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 10730 5750 50  0001 C CNN
+F 3 "" H 10800 5750 50  0001 C CNN
+	1    10800 5750
 	1    0    0    -1  
 $EndComp
 $Comp
 L R R1
 U 1 1 58FFA6A2
-P 10400 5750
-F 0 "R1" H 10400 5900 50  0000 C CNN
-F 1 "4K" V 10400 5750 50  0000 C CNN
-F 2 "Resistors_SMD:R_1206_HandSoldering" V 10330 5750 50  0001 C CNN
-F 3 "" H 10400 5750 50  0001 C CNN
-	1    10400 5750
+P 10700 5750
+F 0 "R1" H 10700 5900 50  0000 C CNN
+F 1 "4K" V 10700 5750 50  0000 C CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 10630 5750 50  0001 C CNN
+F 3 "" H 10700 5750 50  0001 C CNN
+	1    10700 5750
 	1    0    0    -1  
 $EndComp
-Text GLabel 1900 900  3    60   Input ~ 0
+Text GLabel 6400 4900 3    60   Input ~ 0
 MUX_0_5V
 Text GLabel 1150 700  0    60   Input ~ 0
 COLOR_1_5V
@@ -391,7 +391,7 @@ F 3 "" H 2950 1300 50  0000 C CNN
 	1    2950 1300
 	-1   0    0    1   
 $EndComp
-Text GLabel 3400 900  3    60   Input ~ 0
+Text GLabel 4900 2900 3    60   Input ~ 0
 MUX_1_5V
 Text GLabel 2650 700  0    60   Input ~ 0
 COLOR_1_5V
@@ -439,7 +439,7 @@ F 3 "" H 4450 1300 50  0000 C CNN
 	1    4450 1300
 	-1   0    0    1   
 $EndComp
-Text GLabel 4900 900  3    60   Input ~ 0
+Text GLabel 3400 2900 3    60   Input ~ 0
 MUX_2_5V
 Text GLabel 4150 700  0    60   Input ~ 0
 COLOR_1_5V
@@ -487,7 +487,7 @@ F 3 "" H 5950 1300 50  0000 C CNN
 	1    5950 1300
 	-1   0    0    1   
 $EndComp
-Text GLabel 6400 900  3    60   Input ~ 0
+Text GLabel 1900 900  3    60   Input ~ 0
 MUX_3_5V
 Text GLabel 5650 700  0    60   Input ~ 0
 COLOR_1_5V
@@ -535,7 +535,7 @@ F 3 "" H 1450 2300 50  0000 C CNN
 	1    1450 2300
 	-1   0    0    1   
 $EndComp
-Text GLabel 1900 1900 3    60   Input ~ 0
+Text GLabel 4900 4900 3    60   Input ~ 0
 MUX_4_5V
 Text GLabel 1150 1700 0    60   Input ~ 0
 COLOR_1_5V
@@ -583,7 +583,7 @@ F 3 "" H 2950 2300 50  0000 C CNN
 	1    2950 2300
 	-1   0    0    1   
 $EndComp
-Text GLabel 3400 1900 3    60   Input ~ 0
+Text GLabel 6400 2900 3    60   Input ~ 0
 MUX_5_5V
 Text GLabel 2650 1700 0    60   Input ~ 0
 COLOR_1_5V
@@ -631,7 +631,7 @@ F 3 "" H 4450 2300 50  0000 C CNN
 	1    4450 2300
 	-1   0    0    1   
 $EndComp
-Text GLabel 4900 1900 3    60   Input ~ 0
+Text GLabel 1900 2900 3    60   Input ~ 0
 MUX_6_5V
 Text GLabel 4150 1700 0    60   Input ~ 0
 COLOR_1_5V
@@ -679,7 +679,7 @@ F 3 "" H 5950 2300 50  0000 C CNN
 	1    5950 2300
 	-1   0    0    1   
 $EndComp
-Text GLabel 6400 1900 3    60   Input ~ 0
+Text GLabel 3400 900  3    60   Input ~ 0
 MUX_7_5V
 Text GLabel 5650 1700 0    60   Input ~ 0
 COLOR_1_5V
@@ -727,7 +727,7 @@ F 3 "" H 1450 3300 50  0000 C CNN
 	1    1450 3300
 	-1   0    0    1   
 $EndComp
-Text GLabel 1900 2900 3    60   Input ~ 0
+Text GLabel 3400 4900 3    60   Input ~ 0
 MUX_8_5V
 Text GLabel 1150 2700 0    60   Input ~ 0
 COLOR_1_5V
@@ -775,7 +775,7 @@ F 3 "" H 2950 3300 50  0000 C CNN
 	1    2950 3300
 	-1   0    0    1   
 $EndComp
-Text GLabel 3400 2900 3    60   Input ~ 0
+Text GLabel 1900 3900 3    60   Input ~ 0
 MUX_9_5V
 Text GLabel 2650 2700 0    60   Input ~ 0
 COLOR_1_5V
@@ -823,7 +823,7 @@ F 3 "" H 4450 3300 50  0000 C CNN
 	1    4450 3300
 	-1   0    0    1   
 $EndComp
-Text GLabel 4900 2900 3    60   Input ~ 0
+Text GLabel 6400 1900 3    60   Input ~ 0
 MUX_10_5V
 Text GLabel 4150 2700 0    60   Input ~ 0
 COLOR_1_5V
@@ -871,7 +871,7 @@ F 3 "" H 5950 3300 50  0000 C CNN
 	1    5950 3300
 	-1   0    0    1   
 $EndComp
-Text GLabel 6400 2900 3    60   Input ~ 0
+Text GLabel 4900 900  3    60   Input ~ 0
 MUX_11_5V
 Text GLabel 5650 2700 0    60   Input ~ 0
 COLOR_1_5V
@@ -919,7 +919,7 @@ F 3 "" H 1450 4300 50  0000 C CNN
 	1    1450 4300
 	-1   0    0    1   
 $EndComp
-Text GLabel 1900 3900 3    60   Input ~ 0
+Text GLabel 1900 4900 3    60   Input ~ 0
 MUX_12_5V
 Text GLabel 1150 3700 0    60   Input ~ 0
 COLOR_1_5V
@@ -1015,7 +1015,7 @@ F 3 "" H 4450 4300 50  0000 C CNN
 	1    4450 4300
 	-1   0    0    1   
 $EndComp
-Text GLabel 4900 3900 3    60   Input ~ 0
+Text GLabel 4900 1900 3    60   Input ~ 0
 MUX_14_5V
 Text GLabel 4150 3700 0    60   Input ~ 0
 COLOR_1_5V
@@ -1063,7 +1063,7 @@ F 3 "" H 5950 4300 50  0000 C CNN
 	1    5950 4300
 	-1   0    0    1   
 $EndComp
-Text GLabel 6400 3900 3    60   Input ~ 0
+Text GLabel 6400 900  3    60   Input ~ 0
 MUX_15_5V
 Text GLabel 5650 3700 0    60   Input ~ 0
 COLOR_1_5V
@@ -1111,7 +1111,7 @@ F 3 "" H 1450 5300 50  0000 C CNN
 	1    1450 5300
 	-1   0    0    1   
 $EndComp
-Text GLabel 1900 4900 3    60   Input ~ 0
+Text GLabel 6400 3900 3    60   Input ~ 0
 MUX_16_5V
 Text GLabel 1150 4700 0    60   Input ~ 0
 COLOR_1_5V
@@ -1159,7 +1159,7 @@ F 3 "" H 2950 5300 50  0000 C CNN
 	1    2950 5300
 	-1   0    0    1   
 $EndComp
-Text GLabel 3400 4900 3    60   Input ~ 0
+Text GLabel 4900 3900 3    60   Input ~ 0
 MUX_17_5V
 Text GLabel 2650 4700 0    60   Input ~ 0
 COLOR_1_5V
@@ -1207,7 +1207,7 @@ F 3 "" H 4450 5300 50  0000 C CNN
 	1    4450 5300
 	-1   0    0    1   
 $EndComp
-Text GLabel 4900 4900 3    60   Input ~ 0
+Text GLabel 3400 1900 3    60   Input ~ 0
 MUX_18_5V
 Text GLabel 4150 4700 0    60   Input ~ 0
 COLOR_1_5V
@@ -1255,7 +1255,7 @@ F 3 "" H 5950 5300 50  0000 C CNN
 	1    5950 5300
 	-1   0    0    1   
 $EndComp
-Text GLabel 6400 4900 3    60   Input ~ 0
+Text GLabel 1900 1900 3    60   Input ~ 0
 MUX_19_5V
 Text GLabel 5650 4700 0    60   Input ~ 0
 COLOR_1_5V
@@ -1491,8 +1491,8 @@ Text GLabel 1400 6950 0    60   BiDi ~ 0
 I2C_SDA
 NoConn ~ 8600 1750
 NoConn ~ 8600 2750
-NoConn ~ 10500 4200
-NoConn ~ 10500 5600
+NoConn ~ 10600 4200
+NoConn ~ 10600 5600
 $Comp
 L CONN_01X08 J1
 U 1 1 590081B3
@@ -1532,7 +1532,7 @@ U 1 1 59048E4D
 P 8100 2350
 F 0 "R4" V 8000 2300 50  0000 C CNN
 F 1 "R" V 8100 2350 50  0000 C CNN
-F 2 "Resistors_SMD:R_1206_HandSoldering" V 8030 2350 50  0001 C CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 8030 2350 50  0001 C CNN
 F 3 "" H 8100 2350 50  0001 C CNN
 	1    8100 2350
 	0    1    1    0   
@@ -1543,14 +1543,77 @@ Connection ~ 7800 2350
 Wire Wire Line
 	8250 2350 8600 2350
 $Comp
-L GND #PWR?
+L GND #PWR020
 U 1 1 5904B185
 P 7800 2650
-F 0 "#PWR?" H 7800 2400 50  0001 C CNN
+F 0 "#PWR020" H 7800 2400 50  0001 C CNN
 F 1 "GND" H 7800 2500 50  0000 C CNN
 F 2 "" H 7800 2650 50  0001 C CNN
 F 3 "" H 7800 2650 50  0001 C CNN
 	1    7800 2650
 	1    0    0    -1  
 $EndComp
+$Comp
+L C C1
+U 1 1 590C60B5
+P 5550 6200
+F 0 "C1" H 5575 6300 50  0000 L CNN
+F 1 "100u" H 5575 6100 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0805_HandSoldering" H 5588 6050 50  0001 C CNN
+F 3 "" H 5550 6200 50  0001 C CNN
+	1    5550 6200
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C2
+U 1 1 590C6320
+P 5850 6200
+F 0 "C2" H 5875 6300 50  0000 L CNN
+F 1 "100u" H 5875 6100 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0805_HandSoldering" H 5888 6050 50  0001 C CNN
+F 3 "" H 5850 6200 50  0001 C CNN
+	1    5850 6200
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C3
+U 1 1 590C6410
+P 6150 6200
+F 0 "C3" H 6175 6300 50  0000 L CNN
+F 1 "100u" H 6175 6100 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0805_HandSoldering" H 6188 6050 50  0001 C CNN
+F 3 "" H 6150 6200 50  0001 C CNN
+	1    6150 6200
+	1    0    0    -1  
+$EndComp
+$Comp
+L VCC #PWR021
+U 1 1 590C6505
+P 6350 6050
+F 0 "#PWR021" H 6350 5900 50  0001 C CNN
+F 1 "VCC" H 6350 6200 50  0000 C CNN
+F 2 "" H 6350 6050 50  0001 C CNN
+F 3 "" H 6350 6050 50  0001 C CNN
+	1    6350 6050
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR022
+U 1 1 590C65FA
+P 6350 6350
+F 0 "#PWR022" H 6350 6100 50  0001 C CNN
+F 1 "GND" H 6350 6200 50  0000 C CNN
+F 2 "" H 6350 6350 50  0001 C CNN
+F 3 "" H 6350 6350 50  0001 C CNN
+	1    6350 6350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5550 6350 6350 6350
+Connection ~ 6150 6350
+Connection ~ 5850 6350
+Wire Wire Line
+	5550 6050 6350 6050
+Connection ~ 5850 6050
+Connection ~ 6150 6050
 $EndSCHEMATC
