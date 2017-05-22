@@ -1,1 +1,9 @@
-# 74HCT245PW,118 (TSSOP-20)
+# BOM
+-  3x LevelShifter: 74HCT245PW,118, (TSSOP-20)
+-  1x LDO: LD1117S33TR, 3.3V (SOT-223)
+-  1x Zener Diode: MMSZ4684-TP, 3.3V (SOD-123)
+- 20x Diode: 1N4148W (SOD-123)
+-  3x Capacitor: CL21A226MQQNNNF, 6.3V, 22-100 uF, Ceramic (SMD-0805)
+-  1x Resistor: RC0805JR-134K7L, 4.7 kOhm (SMD-0805)
+-  2x Resistor: NRC10J221TRF, 220 Ohm (SMD-0805)
+-  1x Resistor: NRC10J101TRF, 100 Ohm (SMD-0805)
