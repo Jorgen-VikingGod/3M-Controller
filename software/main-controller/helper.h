@@ -78,7 +78,10 @@ void DEBUG_PRINTLN_HEX(byte b) {
     Serial.println(HEX_CHAR_ARRAY[w]);
   }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9a84e43... esp32 version only
 template <typename... Args>
 void DEBUG_PRINTF(const char *format, Args &&...args) {
   if (_debug) {

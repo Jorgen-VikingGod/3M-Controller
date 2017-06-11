@@ -10,7 +10,11 @@
 
 #include "helper.h"
 #include "i2c_device.h"
+<<<<<<< HEAD
 #include <FastLED.h>
+=======
+#include <NeoPixelBus.h>
+>>>>>>> 9a84e43... esp32 version only
 
 #define MAX_BUTTONS 21
 
