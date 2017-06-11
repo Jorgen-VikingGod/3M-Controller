@@ -1,7 +1,6 @@
 #include "config.h"
 #include "helper.h"
 
-<<<<<<< HEAD
 /*
 #include <displaylib.h>      // https://github.com/olikraus/display_Arduino
 #ifdef U8X8_HAVE_HW_SPI
@@ -13,13 +12,6 @@
 #include <Wire.h>
 #endif
 */
-=======
-#include <WiFi.h>
-#include <MIDI.h>
-MIDI_CREATE_DEFAULT_INSTANCE();
-
-#if _display
->>>>>>> 9a84e43... esp32 version only
 #include <SPI.h>
 #include <Ucglib.h>
 
@@ -40,16 +32,10 @@ volatile boolean interruptEnabled;
 // initial device list class
 DeviceList devices(ENABLE_PIN, ENABLE_LOOP_PIN);
 
-<<<<<<< HEAD
 // initial display
 //display_SH1106_128X64_NONAME_F_4W_HW_SPI display(display_R0, OLED_CS_PIN, OLED_DC_PIN, OLED_RST_PIN);
 //Ucglib_SSD1331_18x96x64_UNIVISION_HWSPI display(OLED_DC_PIN, OLED_CS_PIN, OLED_RST_PIN);
 Ucglib_ILI9163_18x128x128_HWSPI display(OLED_DC_PIN, OLED_CS_PIN, OLED_RST_PIN);
-=======
-#if _display
-OLED display(OLED_CS_PIN, OLED_DC_PIN, OLED_RST_PIN);
-#endif
->>>>>>> 9a84e43... esp32 version only
 
 
 CRGB rgbMap[6] = {0xFF0000, 0xFFFF00, 0x00FF00, 0x00FFFF, 0x0000FF, 0xFF00FF};
@@ -71,14 +57,13 @@ static uint8_t thisdelay = 25;
 
 unsigned long previous_millis = 0;
 
-const int ledPin = 13;
-static RgbColor colTemp = RgbColor(0);
 
 
 void onSuccessInitialCallback(I2C_Device* device) {
   DEBUG_PRINT(F("Main: onSuccessInitialCallback - device initialed: "));
   DEBUG_PRINTLN(device->deviceID());
 }
+
 
 void onButtonPressCallback(RGBButton* btn) {
   Serial.print(F("Main: onButtonPressCallback ("));
@@ -90,7 +75,6 @@ void onButtonPressCallback(RGBButton* btn) {
   Serial.print(buttonDevice->deviceID());
   Serial.println(F("): pressed"));
   btn->setColor(rgbMap[buttonID]); 
-<<<<<<< HEAD
   usbMIDI.sendNoteOn(notes[buttonID], 99, 1);
   buttonDevice->sendCurrentColorStream();
 }
@@ -107,55 +91,12 @@ void onButtonReleaseCallback(RGBButton* btn) {
   btn->setColor(CRGB::Black);
   usbMIDI.sendNoteOff(notes[buttonID], 0, 1);
   buttonDevice->sendCurrentColorStream();
-=======
-  buttonDevice->sendCurrentColorStream();
-  MIDI.sendNoteOn(notes[buttonID], 99, 1);
-
-#if _display
-  OLED_TextBox box(display, 0, 0, 128, 127);
-  box.reset(); // reset the text box contents, without clearing screen (allows flicker-free redraw)
-  box.setForegroundColour(DARKBLUE);
-  box.print("Control Change");
-  box.setForegroundColour(WHITE);
-  box.print("buttonID: ");
-  box.print(buttonID);
-  box.print("channelOffset: ");
-  box.print(channelOffset);
-  box.print("deviceID: ");
-  box.print(buttonDevice->deviceID());
-  box.print("\n");
-#endif
-}
-
-void onButtonReleaseCallback(RGBButton* btn) {
-  DEBUG_PRINT(F("Main: onButtonReleaseCallback ("));
-  uint8_t buttonID = btn->id();
-  ButtonDevice *buttonDevice = btn->device();
-  int channelOffset = buttonDevice->channelOffset();
-  DEBUG_PRINT(channelOffset+buttonID);
-  DEBUG_PRINT(F(", "));
-  DEBUG_PRINT(buttonDevice->deviceID());
-  DEBUG_PRINTLN(F("): released"));
-  btn->setColor(RgbColor(0));
-  buttonDevice->sendCurrentColorStream();
-  MIDI.sendNoteOff(notes[buttonID], 0, 1);
-  if (buttonID == 4) {
-    speedIdx++;
-    if (speedIdx>9)
-      speedIdx = 0;
-    thisdelay = speedList[speedIdx];
-  }
-  if (buttonID == 5) {
-    bToggle = !bToggle;
-  }
->>>>>>> 9a84e43... esp32 version only
 }
 
 void onEnableLoopPinChanged() {
   DEBUG_PRINTLN(F("Main: onEnableLoopPinChanged: "));
 }
 
-<<<<<<< HEAD
 void handle_interrupts() {
   while(1) {
     if (digitalRead(INTERRUPT_PIN) == LOW) {
@@ -229,21 +170,6 @@ void OnNoteOn(byte channel, byte note, byte velocity) {
   display.setPrintPos(5, 55);
   display.print("velocity: ");
   display.print(velocity);
-=======
-void onInterruptPinLow() {
-  interruptEnabled = true;
-  gpio_set_intr_type((gpio_num_t)INTERRUPT_PIN, GPIO_INTR_DISABLE);
-}
-
-void OnNoteOn(byte channel, byte note, byte velocity) {
-  DEBUG_PRINT("Note On, ch=");
-  DEBUG_PRINT(channel, DEC);
-  DEBUG_PRINT(", note=");
-  DEBUG_PRINT(note, DEC);
-  DEBUG_PRINT(", velocity=");
-  DEBUG_PRINT(velocity, DEC);
-  DEBUG_PRINTLN("");
->>>>>>> 9a84e43... esp32 version only
   
   if (note == 60) {
     colTemp.red = 255; 
@@ -262,7 +188,6 @@ void OnNoteOn(byte channel, byte note, byte velocity) {
 }
 
 void OnNoteOff(byte channel, byte note, byte velocity) {
-<<<<<<< HEAD
   Serial.print("Note Off, ch=");
   Serial.print(channel, DEC);
   Serial.print(", note=");
@@ -294,16 +219,6 @@ void OnNoteOff(byte channel, byte note, byte velocity) {
   display.print("velocity: ");
   display.print(velocity);
   
-=======
-  DEBUG_PRINT("Note Off, ch=");
-  DEBUG_PRINT(channel, DEC);
-  DEBUG_PRINT(", note=");
-  DEBUG_PRINT(note, DEC);
-  DEBUG_PRINT(", velocity=");
-  DEBUG_PRINT(velocity, DEC);
-  DEBUG_PRINTLN("");
-
->>>>>>> 9a84e43... esp32 version only
   if (note == 60) {
     colTemp.red = 0; 
   } else if (note == 62) {
@@ -321,7 +236,6 @@ void OnNoteOff(byte channel, byte note, byte velocity) {
 }
 
 void OnVelocityChange(byte channel, byte note, byte velocity) {
-<<<<<<< HEAD
   Serial.print("Velocity Change, ch=");
   Serial.print(channel, DEC);
   Serial.print(", note=");
@@ -386,26 +300,6 @@ void OnControlChange(byte channel, byte control, byte value) {
   display.print("value: ");
   display.print(value);
   
-=======
-  DEBUG_PRINT("Velocity Change, ch=");
-  DEBUG_PRINT(channel, DEC);
-  DEBUG_PRINT(", note=");
-  DEBUG_PRINT(note, DEC);
-  DEBUG_PRINT(", velocity=");
-  DEBUG_PRINT(velocity, DEC);
-  DEBUG_PRINTLN("");
-}
-
-void OnControlChange(byte channel, byte control, byte value) {
-  DEBUG_PRINT("Control Change, ch=");
-  DEBUG_PRINT(channel, DEC);
-  DEBUG_PRINT(", control=");
-  DEBUG_PRINT(control, DEC);
-  DEBUG_PRINT(", value=");
-  DEBUG_PRINT(value, DEC);
-  DEBUG_PRINTLN("");
-
->>>>>>> 9a84e43... esp32 version only
   if (control == 0) {
     colTemp.red = value*2;
   } else if (control == 1) {
@@ -422,13 +316,9 @@ void OnControlChange(byte channel, byte control, byte value) {
   } // if (buttonDevice) {
   
   if (channel == 1 && control == 123 && value == 0) {
-<<<<<<< HEAD
     display.setColor(255, 0, 0);
     display.setPrintPos(5, 65);
     display.print("<MIDI> reset!");
-=======
-    // midi reset
->>>>>>> 9a84e43... esp32 version only
   }
 }
 
@@ -464,7 +354,6 @@ void setup() {
   pinMode(19, INPUT_PULLUP);
 
   // initial I2C library with internal pullups and 1MHz clock
-<<<<<<< HEAD
   Wire.begin(I2C_MASTER, 0x00, I2C_PINS_18_19, I2C_PULLUP_INT, I2C_RATE_1000);
   
   // initial display with 180 degree screen rotation
@@ -486,29 +375,6 @@ void setup() {
   // interrupt pin to get informed if some devices through interrupts
   pinMode(INTERRUPT_PIN, INPUT);
   attachInterrupt(INTERRUPT_PIN, onInterruptPinRising, FALLING);
-=======
-  uint64_t chipid=ESP.getEfuseMac();//The chip ID is essentially its MAC address(length: 6 bytes).
-  DEBUG_PRINTF("ESP32 Chip ID = %04X",(uint16_t)(chipid>>32));//print High 2 bytes
-  DEBUG_PRINTF("%08X\n",(uint32_t)chipid);//print Low 4bytes.
-  WiFi.mode(WIFI_MODE_NULL);
-  //pinMode(21, INPUT_PULLUP);    // SDA
-  //pinMode(22, INPUT_PULLUP);    // SCL
-  Wire.begin(SDA, SCL, 400000L);
-  //Wire.setClock(1000000L);
-
-  // register callbacks for usbMIDI events
-  MIDI.setHandleNoteOff(OnNoteOff);
-  MIDI.setHandleNoteOn(OnNoteOn);
-  MIDI.setHandleControlChange(OnControlChange);
-  MIDI.setHandleProgramChange(OnProgramChange);
-  // Initiate MIDI communications, listen to all channels
-  MIDI.begin(MIDI_CHANNEL_OMNI);
-  // register enable and interrupt pins and attach interrupts
-  DEBUG_PRINTLN(F("Main: Initial interrupt pins"));
-  // interrupt pin to get informed if some devices through interrupts
-  pinMode(INTERRUPT_PIN, INPUT_PULLUP);
-  attachInterrupt(INTERRUPT_PIN, onInterruptPinLow, ONLOW);
->>>>>>> 9a84e43... esp32 version only
 
   eState = MLS_INITIAL_DEVICES;
 }
@@ -578,12 +444,9 @@ void loop() {
         //} // if (devState != 0x00) {
       } // if (dev) {
       interruptEnabled = false;
-<<<<<<< HEAD
-=======
-      gpio_set_intr_type((gpio_num_t)INTERRUPT_PIN, GPIO_INTR_LOW_LEVEL);
->>>>>>> 9a84e43... esp32 version only
     } // for (int idx = 0; idx < devices.deviceCount(); ++idx) {
   } // if (interruptEnabled) 
+
 
   // main loop state machine
   switch (eState) {
@@ -700,10 +563,5 @@ void loop() {
       break;
     } // case MLS_PROCESS:
   } // switch (eState)
-<<<<<<< HEAD
   usbMIDI.read(); // USB MIDI receive
-=======
-  // Call MIDI.read the fastest you can for real-time performance.
-  MIDI.read();
->>>>>>> 9a84e43... esp32 version only
 }

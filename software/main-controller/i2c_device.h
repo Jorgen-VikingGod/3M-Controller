@@ -9,12 +9,8 @@
 #define I2C_DEVICE_H_
 
 // Include I2C lib
-<<<<<<< HEAD
 //#include <Wire.h>
 #include <i2c_t3.h>
-=======
-#include <Wire.h>
->>>>>>> 9a84e43... esp32 version only
 #include "helper.h"
 
 //Threads::Mutex wire_lock;
@@ -133,14 +129,11 @@ public:
     Wire.beginTransmission(deviceAddress);
     Wire.write(addr);
     Wire.write(buf, length);
-<<<<<<< HEAD
     for (uint8_t i = 0; i < length; i++) {
       //Wire.write(buf[i]);
       DEBUG_PRINT_HEX(buf[i]);
       DEBUG_PRINT(F(" "));
     }
-=======
->>>>>>> 9a84e43... esp32 version only
     Wire.endTransmission();
     DEBUG_PRINT(F(", "));
     DEBUG_PRINT(length);
