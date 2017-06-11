@@ -8,7 +8,7 @@
 |2|Resistor|220 Ohm|SMD-0805|
 |1|Resistor|4.7 kOhm|SMD-0805|
 |1|Resistor|100 Ohm|SMD-0805|
-|3|Capacitor|6.3V 22-100 uF|SMD-0805|
+|3|Capacitor|6.3V 100 nF|SMD-0805|
 
 # BOM (for 10 boards, [arrow.com](https://www.arrow.com))
 |PART|MANUFACTURER|QUANTITY|PRICE|PRICE TOTAL|DESCRIPTION|DETAILS|
@@ -20,4 +20,4 @@
 |NRC10J221TRF|NIC Components|20|0,0159|0,318|Res Thick Film 0805 220 Ohm 5% 0.125W(1/8W) ±200ppm/°C Pad SMD T/R|https://www.arrow.com/products/nrc10j221trf/nic-components|
 |NRC10J101TRF|NIC Components|10|0,0141|0,141|Res Thick Film 0805 100 Ohm 5% 0.125W(1/8W) ±200ppm/°C Pad SMD T/R|https://www.arrow.com/products/nrc10j101trf/nic-components|
 |RC0805JR-134K7L|Yageo|10|0,0175|0,175|Res Thick Film 0805 4.7K Ohm 5% 0.125W(1/8W) ±100ppm/°C Epoxy Pad SMD T/R|https://www.arrow.com/products/rc0805jr-134k7l/yageo|
-|CL21A226MQQNNNF|Samsung Electro-Mechanics|30|0,0503|1,509|Cap Ceramic 22uF 6.3V X5R 20% Pad SMD 0805 85°C T/R|https://www.arrow.com/products/cl21a226mqqnnnf/samsung-electro-mechanics|
+|C0805C104K9RACTU|KEMET Corporation|30|0.0759|2.277|Cap Ceramic 0.1uF 6.3V X7R 10% Pad SMD 0805 125°C T/R|https://www.arrow.com/en/products/c0805c104k9ractu/kemet-corporation|
