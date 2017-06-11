@@ -2,14 +2,9 @@
 #include "config.h"
 #include "helper.h"
 
-#if defined(ESP32)
 #include <WiFi.h>
-#endif
-
-#if !defined(__MK20DX256__)
 #include <MIDI.h>
 MIDI_CREATE_DEFAULT_INSTANCE();
-#endif
 
 #if _display
 #include <SPI.h>
@@ -34,11 +29,6 @@ volatile boolean interruptEnabled = false;
 // initial device list class
 DeviceList devices(ENABLE_PIN, ENABLE_LOOP_PIN);
 
-// initial display
-//display_SH1106_128X64_NONAME_F_4W_HW_SPI display(display_R0, OLED_CS_PIN, OLED_DC_PIN, OLED_RST_PIN);
-//Ucglib_SSD1331_18x96x64_UNIVISION_HWSPI display(OLED_DC_PIN, OLED_CS_PIN, OLED_RST_PIN);
-//Ucglib_ILI9163_18x128x128_HWSPI display(OLED_DC_PIN, OLED_CS_PIN, OLED_RST_PIN);
-//Ucglib_SSD1351_18x128x128_HWSPI display(OLED_DC_PIN, OLED_CS_PIN, OLED_RST_PIN);
 #if _display
 OLED display(OLED_CS_PIN, OLED_DC_PIN, OLED_RST_PIN);
 #endif
@@ -63,13 +53,14 @@ static uint8_t thisdelay = 25;
 
 unsigned long previous_millis = 0;
 
+const int ledPin = 13;
+static RgbColor colTemp = RgbColor(0);
 
 
 void onSuccessInitialCallback(I2C_Device* device) {
   DEBUG_PRINT(F("Main: onSuccessInitialCallback - device initialed: "));
   DEBUG_PRINTLN(device->deviceID());
 }
-
 
 void onButtonPressCallback(RGBButton* btn) {
   DEBUG_PRINT(F("Main: onButtonPressCallback ("));
@@ -82,14 +73,10 @@ void onButtonPressCallback(RGBButton* btn) {
   DEBUG_PRINTLN(F("): pressed"));
   btn->setColor(rgbMap[buttonID]); 
   buttonDevice->sendCurrentColorStream();
-#if defined(__MK20DX256__)
-  usbMIDI.sendNoteOn(notes[buttonID], 99, 1);
-#endif
+  MIDI.sendNoteOn(notes[buttonID], 99, 1);
 
 #if _display
-
   OLED_TextBox box(display, 0, 0, 128, 127);
-
   box.reset(); // reset the text box contents, without clearing screen (allows flicker-free redraw)
   box.setForegroundColour(DARKBLUE);
   box.print("Control Change");
@@ -102,11 +89,9 @@ void onButtonPressCallback(RGBButton* btn) {
   box.print(buttonDevice->deviceID());
   box.print("\n");
 #endif
-
 }
 
 void onButtonReleaseCallback(RGBButton* btn) {
-  //noInterrupts();
   DEBUG_PRINT(F("Main: onButtonReleaseCallback ("));
   uint8_t buttonID = btn->id();
   ButtonDevice *buttonDevice = btn->device();
@@ -117,10 +102,7 @@ void onButtonReleaseCallback(RGBButton* btn) {
   DEBUG_PRINTLN(F("): released"));
   btn->setColor(RgbColor(0));
   buttonDevice->sendCurrentColorStream();
-#if defined(__MK20DX256__)
-  usbMIDI.sendNoteOff(notes[buttonID], 0, 1);
-#endif
-
+  MIDI.sendNoteOff(notes[buttonID], 0, 1);
   if (buttonID == 4) {
     speedIdx++;
     if (speedIdx>9)
@@ -130,40 +112,16 @@ void onButtonReleaseCallback(RGBButton* btn) {
   if (buttonID == 5) {
     bToggle = !bToggle;
   }
-  //interrupts();
 }
 
 void onEnableLoopPinChanged() {
   DEBUG_PRINTLN(F("Main: onEnableLoopPinChanged: "));
 }
 
-void handle_interrupts() {
-  while(1) {
-    if (digitalRead(INTERRUPT_PIN) == LOW) {
-      ButtonDevice *buttonDevice = devices.buttonDevice(0);
-      if (buttonDevice) {
-        uint8_t devState = buttonDevice->fetchDeviceStatus();
-        if (devState != 0x00) {
-          buttonDevice->fetchButtonStates();
-        } // if (devState != 0x00) {
-        else {
-          DEBUG_PRINTLN(F("handle_interrupts > devState != 0x00"));
-        }
-      } // if (buttonDevice) {
-    } // if (digitalRead(INTERRUPT_PIN) == LOW) {
-  } // while(1) {
-} // handle_interrupts
-
 void onInterruptPinLow() {
   interruptEnabled = true;
-  //digitalWrite(5, HIGH);
-  //gpio_intr_disable((gpio_num_t)INTERRUPT_PIN);
   gpio_set_intr_type((gpio_num_t)INTERRUPT_PIN, GPIO_INTR_DISABLE);
 }
-
-const int ledPin = 13;
-
-static RgbColor colTemp = RgbColor(0);
 
 void OnNoteOn(byte channel, byte note, byte velocity) {
   DEBUG_PRINT("Note On, ch=");
@@ -173,34 +131,6 @@ void OnNoteOn(byte channel, byte note, byte velocity) {
   DEBUG_PRINT(", velocity=");
   DEBUG_PRINT(velocity, DEC);
   DEBUG_PRINTLN("");
-
-#if _display
-/*
-  //display.setColor(0, 80, 40, 0);
-  //display.setColor(1, 60, 0, 40);
-  //display.setColor(2, 20, 0, 20);
-  //display.setColor(3, 60, 0, 0); 
-  //display.drawGradientBox(0, 0, display.getWidth(), display.getHeight()); 
-  display.setColor(0,0,0);
-  display.drawBox(0, 0, 80, 64);
-  
-  display.setFont(ucg_font_helvB10_hr);
-  display.setColor(0, 255, 0);
-  display.setPrintPos(5, 15);
-  display.print("Note On");
-  
-  display.setFont(ucg_font_helvB08_hr);
-  display.setColor(255, 255, 255);
-  display.setPrintPos(5, 35);
-  display.print("channel: ");
-  display.print(channel);
-  display.setPrintPos(5, 45);
-  display.print("note: ");
-  display.print(note);
-  display.setPrintPos(5, 55);
-  display.print("velocity: ");
-  display.print(velocity);*/
-#endif
   
   if (note == 60) {
     colTemp.R = 255; 
@@ -227,34 +157,6 @@ void OnNoteOff(byte channel, byte note, byte velocity) {
   DEBUG_PRINT(velocity, DEC);
   DEBUG_PRINTLN("");
 
-#if _display
-/*
-  //display.setColor(0, 80, 40, 0);
-  //display.setColor(1, 60, 0, 40);
-  //display.setColor(2, 20, 0, 20);
-  //display.setColor(3, 60, 0, 0);  
-  //display.drawGradientBox(0, 0, display.getWidth(), display.getHeight());
-  display.setColor(0,0,0);
-  display.drawBox(0, 0, 80, 64);
-  
-  display.setFont(ucg_font_helvB10_hr);
-  display.setColor(255, 0, 0);
-  display.setPrintPos(5, 15);
-  display.print("Note Off");
-  
-  display.setFont(ucg_font_helvB08_hr);
-  display.setColor(255, 255, 255);
-  display.setPrintPos(5, 35);
-  display.print("channel: ");
-  display.print(channel);
-  display.setPrintPos(5, 45);
-  display.print("note: ");
-  display.print(note);
-  display.setPrintPos(5, 55);
-  display.print("velocity: ");
-  display.print(velocity);*/
-#endif
-  
   if (note == 60) {
     colTemp.R = 0; 
   } else if (note == 62) {
@@ -279,34 +181,6 @@ void OnVelocityChange(byte channel, byte note, byte velocity) {
   DEBUG_PRINT(", velocity=");
   DEBUG_PRINT(velocity, DEC);
   DEBUG_PRINTLN("");
-
-#if _display
-/*
-  //display.setColor(0, 80, 40, 0);
-  //display.setColor(1, 60, 0, 40);
-  //display.setColor(2, 20, 0, 20);
-  //display.setColor(3, 60, 0, 0); 
-  //display.drawGradientBox(0, 0, display.getWidth(), display.getHeight()); 
-  display.setColor(0,0,0);
-  display.drawBox(0, 0, 128, 64);
-  
-  display.setFont(ucg_font_helvB10_hr);
-  display.setColor(255, 0, 0);
-  display.setPrintPos(5, 15);
-  display.print("Velocity Change");
-  
-  display.setFont(ucg_font_helvB08_hr);
-  display.setColor(255, 255, 255);
-  display.setPrintPos(5, 35);
-  display.print("channel: ");
-  display.print(channel);
-  display.setPrintPos(5, 45);
-  display.print("note: ");
-  display.print(note);
-  display.setPrintPos(5, 55);
-  display.print("velocity: ");
-  display.print(velocity);*/
-#endif
 }
 
 void OnControlChange(byte channel, byte control, byte value) {
@@ -318,22 +192,6 @@ void OnControlChange(byte channel, byte control, byte value) {
   DEBUG_PRINT(value, DEC);
   DEBUG_PRINTLN("");
 
-#if _display
-  OLED_TextBox box(display, 0, 0, 128, 127);
-
-  box.reset(); // reset the text box contents, without clearing screen (allows flicker-free redraw)
-  box.setForegroundColour(DARKBLUE);
-  box.print("Control Change");
-  box.setForegroundColour(WHITE);
-  box.print("channel: ");
-  box.print(channel);
-  box.print("control: ");
-  box.print(control);
-  box.print("value: ");
-  box.print(value);
-  box.print("\n");
-#endif
-  
   if (control == 0) {
     colTemp.R = value*2;
   } else if (control == 1) {
@@ -350,9 +208,7 @@ void OnControlChange(byte channel, byte control, byte value) {
   } // if (buttonDevice) {
   
   if (channel == 1 && control == 123 && value == 0) {
-    //box.setForegroundColour(RED);
-    //box.print("\n");
-    //box.print("<MIDI> reset!");
+    // midi reset
   }
 }
 
@@ -391,39 +247,15 @@ void setup() {
 #endif
   //display.selectFont(System5x7);
   // initial I2C library with internal pullups and 1MHz clock
-#if defined(__MK20DX256__)  
-  Wire.begin(I2C_MASTER, 0x00, I2C_PINS_18_19, I2C_PULLUP_INT, I2C_RATE_1000);
-#elif defined(ESP32)
   uint64_t chipid=ESP.getEfuseMac();//The chip ID is essentially its MAC address(length: 6 bytes).
   DEBUG_PRINTF("ESP32 Chip ID = %04X",(uint16_t)(chipid>>32));//print High 2 bytes
   DEBUG_PRINTF("%08X\n",(uint32_t)chipid);//print Low 4bytes.
   WiFi.mode(WIFI_MODE_NULL);
-  /*
-  DEBUG_PRINT(F("Chip-ID: "));
-  DEBUG_PRINTLN(ESP.getChipId());
-  WiFi.mode(WIFI_OFF);
-  */
   //pinMode(21, INPUT_PULLUP);    // SDA
   //pinMode(22, INPUT_PULLUP);    // SCL
-  //Wire.begin();
-  Wire.begin(SDA, SCL, 400000L); // SDA (21), SCL (22) on ESP32, 400 kHz rate
-  //Wire.begin(I2C_SDA, I2C_SCL);
+  Wire.begin(SDA, SCL, 400000L);
   //Wire.setClock(1000000L);
-#else
-  Wire.begin();
-  Wire.setClock(1000000L);
-#endif
 
-#if defined(__MK20DX256__)
-  // register callbacks for usbMIDI events
-  usbMIDI.setHandleNoteOff(OnNoteOff);
-  usbMIDI.setHandleNoteOn(OnNoteOn);
-  usbMIDI.setHandleVelocityChange(OnVelocityChange);
-  usbMIDI.setHandleControlChange(OnControlChange);
-  usbMIDI.setHandleProgramChange(OnProgramChange);
-  usbMIDI.setHandleAfterTouch(OnAfterTouch);
-  usbMIDI.setHandlePitchChange(OnPitchChange);
-#else
   // register callbacks for usbMIDI events
   MIDI.setHandleNoteOff(OnNoteOff);
   MIDI.setHandleNoteOn(OnNoteOn);
@@ -431,15 +263,11 @@ void setup() {
   MIDI.setHandleProgramChange(OnProgramChange);
   // Initiate MIDI communications, listen to all channels
   MIDI.begin(MIDI_CHANNEL_OMNI);
-#endif
   // register enable and interrupt pins and attach interrupts
   DEBUG_PRINTLN(F("Main: Initial interrupt pins"));
   // interrupt pin to get informed if some devices through interrupts
   pinMode(INTERRUPT_PIN, INPUT_PULLUP);
   attachInterrupt(INTERRUPT_PIN, onInterruptPinLow, ONLOW);
-
-  //pinMode(5, OUTPUT);
-  //digitalWrite(5, LOW);
 
   eState = MLS_INITIAL_DEVICES;
 }
@@ -471,12 +299,9 @@ void loop() {
         //} // if (devState != 0x00) {
       } // if (dev) {
       interruptEnabled = false;
-      //digitalWrite(5, LOW);
-      //gpio_intr_enable((gpio_num_t)INTERRUPT_PIN);
       gpio_set_intr_type((gpio_num_t)INTERRUPT_PIN, GPIO_INTR_LOW_LEVEL);
     } // for (int idx = 0; idx < devices.deviceCount(); ++idx) {
   } // if (interruptEnabled) 
-
 
   // main loop state machine
   switch (eState) {
@@ -589,10 +414,6 @@ void loop() {
       break;
     } // case MLS_PROCESS:
   } // switch (eState)
-#if defined(__MK20DX256__)
-  usbMIDI.read(); // USB MIDI receive
-#else
   // Call MIDI.read the fastest you can for real-time performance.
   MIDI.read();
-#endif
 }

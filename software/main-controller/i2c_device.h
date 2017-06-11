@@ -9,11 +9,7 @@
 #define I2C_DEVICE_H_
 
 // Include I2C lib
-#if defined(__MK20DX256__)
-#include <i2c_t3.h>
-#else
 #include <Wire.h>
-#endif
 #include "helper.h"
 
 class I2C_Device {
@@ -92,10 +88,7 @@ public:
   static uint8_t writeDataToAddressAndOffset(uint8_t deviceAddress, uint8_t addr, const uint8_t* buf, uint8_t length) {
     Wire.beginTransmission(deviceAddress);
     Wire.write(addr);
-    //Wire.write(buf, length);
-    for (uint8_t i = 0; i < length; i++) {
-      Wire.write(buf[i]);
-    }
+    Wire.write(buf, length);
     Wire.endTransmission();
     return length;
   } // writeDataToAddressAndOffset

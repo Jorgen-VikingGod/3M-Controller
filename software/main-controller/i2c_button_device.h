@@ -10,7 +10,6 @@
 
 #include "helper.h"
 #include "i2c_device.h"
-#define ARDUINO_STM32_FEATHER
 #include <NeoPixelBus.h>
 
 #define MAX_BUTTONS 21
