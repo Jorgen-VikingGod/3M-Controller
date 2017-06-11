@@ -19,7 +19,6 @@ class EncoderDevice : public I2C_Device {
     } EncoderDeviceHeader;
     EncoderDevice(uint8_t devAddr = 0x08)
       : I2C_Device(devAddr) {
-      DEBUG_PRINTLN(F("EncoderDevice: EncoderDevice: "));
     } // EncoderDevice
     EncoderDevice(I2C_Device *parent) {
       m_deviceAddress = parent->deviceAddress();
@@ -31,7 +30,6 @@ class EncoderDevice : public I2C_Device {
       parent->deviceID(m_deviceID);
     } // EncoderDevice copy constructor
     virtual ~EncoderDevice() {
-      DEBUG_PRINTLN(F("EncoderDevice: ~EncoderDevice: "));
     } // ~EncoderDevice()
 };
 
