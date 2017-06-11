@@ -79,12 +79,14 @@ void DEBUG_PRINTLN_HEX(byte b) {
   }
 }
 
+#if !defined(STM32L432xx)
 template <typename... Args>
 void DEBUG_PRINTF(const char *format, Args &&...args) {
   if (_debug) {
     Serial.printf(format, args...);
   }
 }
+#endif
 template <typename Generic>
 void DEBUG_PRINT(Generic text) {
   if (_debug) {

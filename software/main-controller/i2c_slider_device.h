@@ -19,7 +19,6 @@ class SliderDevice : public I2C_Device {
     } SliderDeviceHeader;
     SliderDevice(uint8_t devAddr = 0x08)
       : I2C_Device(devAddr) {
-      DEBUG_PRINTLN(F("SliderDevice: SliderDevice: "));
     } // SliderDevice
     SliderDevice(I2C_Device *parent) {
       m_deviceAddress = parent->deviceAddress();
@@ -31,7 +30,6 @@ class SliderDevice : public I2C_Device {
       parent->deviceID(m_deviceID);
     } // SliderDevice copy constructor
     virtual ~SliderDevice() {
-      DEBUG_PRINTLN(F("SliderDevice: ~SliderDevice: "));
     } // ~SliderDevice()
 };
 
