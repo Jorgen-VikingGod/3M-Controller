@@ -78,7 +78,6 @@ void DEBUG_PRINTLN_HEX(byte b) {
     Serial.println(HEX_CHAR_ARRAY[w]);
   }
 }
-
 template <typename... Args>
 void DEBUG_PRINTF(const char *format, Args &&...args) {
   if (_debug) {

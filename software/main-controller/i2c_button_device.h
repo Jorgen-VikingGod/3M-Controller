@@ -10,7 +10,7 @@
 
 #include "helper.h"
 #include "i2c_device.h"
-#include <FastLED.h>
+#include <NeoPixelBus.h>
 
 #define MAX_BUTTONS 21
 
@@ -28,45 +28,21 @@ class RGBButton {
       m_buttonPressed     = false;
       m_lastPress         = 0;
       m_lastRelease       = 0;
-      m_rgb               = CRGB::Black;
-      DEBUG_PRINT(F("RGBButton: RGBButton("));
-      DEBUG_PRINT(btnID);
-      DEBUG_PRINT(F(", pCallbackFunction, "));
-      DEBUG_PRINT(iClickDelay);
-      DEBUG_PRINT(F(", "));
-      DEBUG_PRINT(iDoubleClickDelay);
-      DEBUG_PRINTLN(F("): "));
+      m_rgb               = RgbColor(0);
     }
     ~RGBButton() {
-      DEBUG_PRINTLN(F("RGBButton: ~RGBButton: "));
     }
     uint8_t id() {
-      DEBUG_PRINT(F("RGBButton: id: "));
-      DEBUG_PRINTLN(m_id);
       return m_id;
     }
     ButtonDevice* device() {
       return m_parent;
     }
     
-    CRGB& color() {
-      DEBUG_PRINT(F("RGBButton: color: ("));
-      DEBUG_PRINT(m_rgb.r);
-      DEBUG_PRINT(F(", "));
-      DEBUG_PRINT(m_rgb.g);
-      DEBUG_PRINT(F(", "));
-      DEBUG_PRINT(m_rgb.b);
-      DEBUG_PRINTLN(F("): "));
+    RgbColor& color() {
       return m_rgb;
     }
-    void setColor(const CRGB &rgbCol) {
-      DEBUG_PRINT(F("RGBButton: setColor("));
-      DEBUG_PRINT(rgbCol.r);
-      DEBUG_PRINT(F(", "));
-      DEBUG_PRINT(rgbCol.g);
-      DEBUG_PRINT(F(", "));
-      DEBUG_PRINT(rgbCol.b);
-      DEBUG_PRINTLN(F("): "));
+    void setColor(const RgbColor &rgbCol) {
       m_rgb = rgbCol;
     }
     /*
@@ -115,13 +91,9 @@ class RGBButton {
     }
     */
     bool isPressed() {
-      DEBUG_PRINT(F("RGBButton: isPressed: "));
-      DEBUG_PRINTLN(m_buttonPressed);
       return m_buttonPressed;
     }
-    void press() {
-      DEBUG_PRINTLN(F("RGBButton: press: "));
-      
+    void press() {      
       unsigned long current = millis();
       /*if (m_buttonPressed) {
 
@@ -137,7 +109,6 @@ class RGBButton {
       m_buttonPressed = true;
     }
     void release() {
-      DEBUG_PRINTLN(F("RGBButton: press: "));
       unsigned long current = millis();
       /*if (m_buttonPressed) {
         if ((current - m_lastPress) > m_clickDelay) {
@@ -160,11 +131,9 @@ class RGBButton {
       m_buttonPressed = false;
     }
     void setPressCallback(void (*pPressCallbackFunction)(RGBButton*)) {
-      DEBUG_PRINTLN(F("RGBButton: setPressCallback: "));
       m_pPressCallback = pPressCallbackFunction;
     }
     void setReleaseCallback(void (*pReleaseCallbackFunction)(RGBButton*)) {
-      DEBUG_PRINTLN(F("RGBButton: setReleaseCallback: "));
       m_pReleaseCallback = pReleaseCallbackFunction;
     }
   private:
@@ -178,7 +147,7 @@ class RGBButton {
     bool m_buttonPressed;
     unsigned long m_lastPress;
     unsigned long m_lastRelease;
-    CRGB m_rgb;
+    RgbColor m_rgb;
     //uint32_t m_rgb;
 };
 
@@ -217,62 +186,38 @@ class ButtonDevice : public I2C_Device {
     } // ButtonDevice copy constructor
     ButtonDevice(uint8_t devAddr = 0x08)
       : I2C_Device(devAddr), m_btnCount(0) {
-      DEBUG_PRINTLN(F("ButtonDevice: ButtonDevice: "));
       for (uint8_t idx = 0; idx < MAX_BUTTONS; idx++) {
         m_buttonList[idx] = NULL;
       }
     } // ButtonDevice
     virtual ~ButtonDevice() {
-      DEBUG_PRINTLN(F("ButtonDevice: ~ButtonDevice: "));
     } // ~ButtonDevice
     virtual bool initial() {
-      DEBUG_PRINTLN(F("ButtonDevice: initial: "));
       writeDataToOffset(BTN_MUX_CONTROL, 0x01);
       m_btnCount = 0;
       return true;
     } // initial
     void readButtonStates() {
-      DEBUG_PRINTLN(F("ButtonDevice: readButtonStates: "));
     } // readButtonStates
     uint8_t buttonCount() {
-      DEBUG_PRINT(F("ButtonDevice: buttonCount: "));
-      DEBUG_PRINTLN(m_btnCount);
       return m_btnCount;
     } // buttonCount
     void setButtonCount(uint8_t btnCount = MAX_BUTTONS) {
-      DEBUG_PRINT(F("ButtonDevice: setButtonCount("));
-      DEBUG_PRINT(btnCount);
-      DEBUG_PRINTLN(F("): "));
       if (btnCount < MAX_BUTTONS+1) {
-        writeDataToOffset(NUMBER_OF_BTNS, 20);//btnCount);
-        //writeDataToOffset(NUMBER_OF_BTNS, 24);
+        writeDataToOffset(NUMBER_OF_BTNS, btnCount);
         writeDataToOffset(BTN_IRQ_MASK_PR_07_00, 0xFF);
         writeDataToOffset(BTN_IRQ_MASK_PR_15_08, 0xFF);
         writeDataToOffset(BTN_IRQ_MASK_PR_23_16, 0xFF);
         writeDataToOffset(BTN_IRQ_MASK_RE_07_00, 0xFF);
         writeDataToOffset(BTN_IRQ_MASK_RE_15_08, 0xFF);
         writeDataToOffset(BTN_IRQ_MASK_RE_23_16, 0xFF);
-        
-        /*DEBUG_PRINTLN(m_btnCount);
-        for (uint8_t idx = 0; idx < m_btnCount; ++idx) {
-          if (m_buttonList[idx]) {
-            DEBUG_PRINTLN(FreeRam());
-            delete m_buttonList[idx];
-            m_buttonList[idx] = NULL;
-            DEBUG_PRINTLN(FreeRam());
-          }
-        }
-        */
         for (uint8_t idx = 0; idx < btnCount; ++idx) {
-          DEBUG_PRINTLN(FreeRam());
           m_buttonList[idx] = new RGBButton(idx, this, m_pPressCallback, m_pReleaseCallback);
-          DEBUG_PRINTLN(FreeRam());
         }
         m_btnCount = btnCount;
       } // if (btnCount < MAX_BUTTONS+1)
     } // setButtonCount
     int addButton(RGBButton *btn) {
-      DEBUG_PRINTLN(F("ButtonDevice: addButton: "));
       if (m_btnCount+1 > MAX_BUTTONS)
         return -1;
       m_buttonList[m_btnCount] = btn;
@@ -280,15 +225,11 @@ class ButtonDevice : public I2C_Device {
       return m_btnCount-1;
     } // addButton
     RGBButton* button(uint8_t idx) {
-      DEBUG_PRINT(F("ButtonDevice: button("));
-      DEBUG_PRINT(idx);
-      DEBUG_PRINTLN(F("): "));
       if (idx > MAX_BUTTONS-1 || m_btnCount == 0)
         return NULL;
       return m_buttonList[idx];
     } // button
     void setGlobalButtonPressCallback(void (*pPressCallbackFunction)(RGBButton*)) {
-      DEBUG_PRINTLN(F("ButtonDevice: setGlobalButtonPressCallback: "));
       m_pPressCallback = pPressCallbackFunction;
       for (uint8_t idx = 0; idx < m_btnCount; ++idx) {
         if (m_buttonList[idx]) {
@@ -297,7 +238,6 @@ class ButtonDevice : public I2C_Device {
       }
     } // setGlobalButtonPressCallback
     void setGlobalButtonReleaseCallback(void (*pReleaseCallbackFunction)(RGBButton*)) {
-      DEBUG_PRINTLN(F("ButtonDevice: setGlobalButtonReleaseCallback: "));
       m_pReleaseCallback = pReleaseCallbackFunction;
       for (uint8_t idx = 0; idx < m_btnCount; ++idx) {
         if (m_buttonList[idx]) {
@@ -306,7 +246,6 @@ class ButtonDevice : public I2C_Device {
       }
     } // setGlobalButtonReleaseCallback
     void fetchButtonStates() {
-      DEBUG_PRINTLN(F("ButtonDevice: fetchButtonStates: "));
       uint8_t temp[6];
       readDataByOffset(BTN_STATES, temp, 6);
       for (uint8_t btnIdx = 0; btnIdx < 3; btnIdx++) {
@@ -329,42 +268,27 @@ class ButtonDevice : public I2C_Device {
     } // fetchButtonStates
     int colorStreamLength() {
       uint8_t bufLength = m_btnCount * 3;
-      DEBUG_PRINT(F("ButtonDevice: "));
-      DEBUG_PRINT(bufLength);
-      DEBUG_PRINTLN(F(" = colorStreamLength()"));
       return bufLength;
     } // colorStreamLength
     int colorStream(uint8_t *buf) {
       uint8_t bufLength = m_btnCount * 3;
-      DEBUG_PRINT(F("ButtonDevice: "));
-      DEBUG_PRINT(bufLength);
-      DEBUG_PRINT(F(" = colorStream("));
       for (uint8_t idx = 0; idx < m_btnCount; ++idx) {
         if (m_buttonList[idx]) {
-          CRGB col = m_buttonList[idx]->color();  
+          RgbColor col = m_buttonList[idx]->color();  
           uint8_t idxR = 3*idx+0;
           uint8_t idxG = 3*idx+1;
           uint8_t idxB = 3*idx+2;
-          buf[idxR] = col.r;
-          DEBUG_PRINT_HEX(buf[idxR]);
-          DEBUG_PRINT(F(" "));
-          buf[idxG] = col.g;
-          DEBUG_PRINT_HEX(buf[idxG]);
-          DEBUG_PRINT(F(" "));
-          buf[idxB] = col.b;
-          DEBUG_PRINT_HEX(buf[idxB]);  
+          buf[idxR] = col.R;
+          buf[idxG] = col.G;
+          buf[idxB] = col.B;
         }
-        DEBUG_PRINT(F(" "));
       } // for (uint8_t idx = 0; idx < m_btnCount; ++idx)
-      DEBUG_PRINTLN(F(")"));
       return bufLength;
     } // colorStream
     void sendColorStream(uint8_t *buf, int length) {
-      DEBUG_PRINTLN(F("ButtonDevice: sendColorStream:"));
       writeDataToOffset(RGB_COLOR_START, buf, length);
     }
     void sendCurrentColorStream() {
-      DEBUG_PRINTLN(F("ButtonDevice: sendCurrentColorStream:"));
       int bufLength = colorStreamLength();
       uint8_t buf[bufLength];
       colorStream(buf);
